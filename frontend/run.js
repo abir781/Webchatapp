@@ -1,8 +1,132 @@
-const runcrack = document.getElementById("iconclick");
+// const runcrack = document.getElementById("iconclick");
+// const mawlaui = document.getElementById("chat-ul");
 
-runcrack.addEventListener("click",()=>{
-    const tracker = document.getElementById("track");
-    const trackervalue = tracker.value.trim();
-    console.log(trackervalue);
-    tracker.value="";
-})
+// runcrack.addEventListener("click", () => {
+//   const tracker = document.getElementById("track");
+//   const trackervalue = tracker.value.trim();
+
+//   if (trackervalue === "") return;
+
+//   const li = document.createElement("li");
+//   const spantext = document.createElement("span");
+
+//   spantext.textContent = trackervalue;
+
+//   // Glass bubble with gold text
+//  spantext.classList.add(
+//   "inline-block",
+//   "bg-black/20",
+//   "backdrop-blur-md",
+//   "border",
+//   "border-yellow-400/10",
+//   "px-4",
+//   "py-2",
+//   "rounded-xl",
+//   "max-w-[70%]",
+//   "break-words",
+//   "text-yellow-400",
+//   "font-semibold",
+//   "neon-glow"
+// );
+
+//   li.appendChild(spantext);
+//   mawlaui.appendChild(li);
+
+//   tracker.value = "";
+
+//   // Auto scroll to bottom
+//   mawlaui.scrollTop = mawlaui.scrollHeight;
+// });
+
+
+const runcrack = document.getElementById("iconclick");
+const mawlaui = document.getElementById("chat-ul");
+const tracker = document.getElementById("track");
+
+// 🔶 Change 1: Generate a random username for this user
+let username = "User" + Math.floor(Math.random() * 1000); // 🔶
+
+const socket = new WebSocket("ws://localhost:8080");
+
+socket.onopen = () => {
+  console.log("✅ Connected to WebSocket server");
+};
+
+socket.onmessage = (event) => {
+  // 🔶 Change 2: Parse JSON instead of plain text
+  const data = JSON.parse(event.data); // 🔶
+  const li = document.createElement("li");
+  const spantext = document.createElement("span");
+   li.classList.add("flex","w-full");
+
+  // 🔶 Change 3: Show username with message
+  spantext.textContent = `${data.user}: ${data.text}`; // 🔶
+
+  if (data.user === username) {
+    li.classList.add("justify-start");
+  } else {
+    li.classList.add("justify-end");
+  }
+
+  // 🔶 Change 4: Different style for self vs others
+  if (data.user === username) {
+   spantext.classList.add(
+      "inline-block",
+       "bg-black/20",
+      "backdrop-blur-md",
+      "text-slate-200",          // 🔹 silver base
+      "px-6",
+       "py-2",
+       "rounded-xl",
+        "max-w-[70%]",
+        "break-words",
+       "font-semibold",
+       "tracking-wide",
+
+  // 🔥 SILVER NEON GLOW (static)
+  "[text-shadow:0_0_2px_#ffffff,0_0_6px_#e5e7eb,0_0_12px_#9ca3af,0_0_25px_rgba(209,213,219,0.8),0_0_45px_rgba(209,213,219,0.6)]"
+);
+ // 🔶
+  } else {
+    spantext.classList.add(
+      "inline-block",
+      "bg-black/20",
+      "backdrop-blur-md",
+      "border",
+      "border-yellow-400/10",
+      "px-6",
+      "py-2",
+      "rounded-xl",
+      "max-w-[70%]",
+      "break-words",
+      "text-yellow-400",
+      "font-semibold",
+      "neon-glow"
+    ); // 🔶
+  }
+
+  li.appendChild(spantext);
+  mawlaui.appendChild(li);
+  mawlaui.scrollTop = mawlaui.scrollHeight;
+};
+
+runcrack.addEventListener("click", () => {
+  const text = tracker.value.trim();
+  if (!text) return;
+
+  // 🔶 Change 5: Send JSON with username
+  socket.send(JSON.stringify({ user: username, text })); // 🔶
+  tracker.value = "";
+});
+
+tracker.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    runcrack.click();
+  }
+});
+
+
+
+
+
+

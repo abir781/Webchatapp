@@ -4,3 +4,12 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.neon-glow {
+  text-shadow:
+    0 0 5px #facc15,
+    0 0 10px #facc15,
+    0 0 20px #facc15,
+    0 0 40px #eab308,
+    0 0 80px #ca8a04;
+}
