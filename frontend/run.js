@@ -60,16 +60,16 @@ socket.onmessage = (event) => {
    li.classList.add("flex","w-full");
 
   // 🔶 Change 3: Show username with message
-  spantext.textContent = `${data.user}: ${data.text}`; // 🔶
+  spantext.textContent = `${data.sender}: ${data.text}`; // 🔶
 
-  if (data.user === username) {
+  if (data.sender === username) {
     li.classList.add("justify-start");
   } else {
     li.classList.add("justify-end");
   }
 
   // 🔶 Change 4: Different style for self vs others
-  if (data.user === username) {
+  if (data.sender=== username) {
    spantext.classList.add(
       "inline-block",
        "bg-black/20",
@@ -115,7 +115,7 @@ runcrack.addEventListener("click", () => {
   if (!text) return;
 
   // 🔶 Change 5: Send JSON with username
-  socket.send(JSON.stringify({ user: username, text })); // 🔶
+  socket.send(JSON.stringify({ sender: username, text })); // 🔶
   tracker.value = "";
 });
 
