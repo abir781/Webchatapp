@@ -13,3 +13,8 @@
     0 0 40px #eab308,
     0 0 80px #ca8a04;
 }
+
+.btn{
+  border: none;
+  box-shadow: none;
+}
