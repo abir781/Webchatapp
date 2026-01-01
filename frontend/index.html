@@ -8,7 +8,7 @@
      <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-maker relative">
+<body class="bg-maker relative ">
 
 
    <div id="buttoncontainer" class="flex space-x-4 pt-4 justify-end items-center pr-60 ">
@@ -30,20 +30,22 @@
   <!-- Google -->
 
 </div>
- 
 
-  <div id="chat-container" class="w-1/2 mx-auto 
+<audio id="myAudio" src="chat.mp3" preload="auto"></audio>
+
+<div class="w-4/6  min-h-screen mx-auto flex ">
+  <div id="chat-container" class="w-4/6
          bg-black/5 
          backdrop-blur-[2px]
          border border-white/5 
          min-h-screen 
-         rounded-xl">>
+         rounded-xl
+         ">
 
     <div class="w-4/6 mx-auto">
 
        <ul id="chat-ul" class="flex flex-col space-y-3">
-      <!-- <li class="text-white">ddfdf</li>
-      <li class="text-white ml-auto">54656</li> -->
+  
     </ul>
 
     </div>
@@ -51,7 +53,34 @@
    
 
   </div>
-  <div id="input-pagla" class="absolute bottom-[25px] left-1/2 -translate-x-1/2 ">
+<div id="preset-chat" class="flex-1  flex flex-col mt-[600px] bg-black/20 py-[20px]  gap-4 grids h-fit ">
+  <!-- Buttons will go here -->
+</div>
+
+</div>
+ 
+<!-- 
+  <div id="chat-container" class="w-1/2 mx-auto 
+         bg-black/5 
+         backdrop-blur-[2px]
+         border border-white/5 
+         min-h-screen 
+         rounded-xl
+         border-2
+         border-green-500">
+
+    <div class="w-4/6 mx-auto">
+
+       <ul id="chat-ul" class="flex flex-col space-y-3">
+    
+    </ul>
+
+    </div> -->
+
+   
+
+  
+  <!-- <div id="input-pagla" class="absolute bottom-[25px] left-1/2 -translate-x-1/2 border-2 border-green-500">
     <input
       id="track"
       type="text"
@@ -70,7 +99,38 @@
       "
     >
     <img id="iconclick" src="sendicon7.png" alt="" class="w-[30px] h-[30px] absolute top-[0px] right-[12px] top-[10px] cursor-pointer ">
-  </div>
+  </div> -->
+
+  <div id="input-pagla" class="absolute bottom-[25px] left-1/2 -translate-x-1/2 w-4/6  flex">
+  <input
+    id="track"
+    type="text"
+    placeholder="Type a message..."
+    class="
+     w-4/6
+      flex-1
+      h-[50px]
+      rounded-[12px]
+      bg-black/10
+      backdrop-blur-md
+      text-white
+      px-4
+      border border-white/12
+      outline-none
+      focus:border-white/30
+      placeholder:text-white/60
+    "
+  >
+  <img id="iconclick" src="sendicon7.png" alt="" class="w-[30px] h-[30px] absolute top-[10px] left-[570px] ml-2 cursor-pointer">
+</div>
+
+<div class="flex">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+</div>
+
 
 
 

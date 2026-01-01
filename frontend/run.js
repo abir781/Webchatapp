@@ -96,6 +96,70 @@
 const runcrack = document.getElementById("iconclick");
 const mawlaui = document.getElementById("chat-ul");
 const tracker = document.getElementById("track");
+const preset = document.getElementById("preset-chat");
+
+const presetTexts = [
+  "মাদারচোদ",
+  "বাইনচোদ",
+  "খানকির ছেলে",
+  " তর মায়েরে চিচিং ফাক"
+];
+
+
+presetTexts.forEach((text, i) => {
+  const btn = document.createElement("button");
+  btn.textContent = text;
+
+  btn.classList.add(
+    "px-4", "py-2", "rounded-lg", 
+     "text-yellow-400",
+     "transition-all","ml-[10px]","bg-black/25","mr-[10px]"
+  );
+
+  // Force new line after every 2 buttons
+
+
+  btn.addEventListener("click", () => sendText(text));
+
+  preset.appendChild(btn);
+});
+
+
+function sendText(text) {
+  const username = getUsername(); // get username from first script
+  if (!username) {
+    alert("Please login first");
+    return;
+  }
+
+  if (!text.trim()) return; // ignore empty messages
+
+  // Send via WebSocket
+  socket.send(JSON.stringify({
+    sender: username,
+    text
+  }));
+
+  // Clear input if it came from tracker
+  if (tracker.value === text) tracker.value = "";
+
+  // Play audio
+  const audio = document.getElementById("myAudio");
+  audio.play().catch(error => console.error("Audio play failed:", error));
+
+  // Optional: immediately add to chat UI
+  // const li = document.createElement("li");
+  // const span = document.createElement("span");
+  // li.classList.add("flex", "justify-start", "w-full"); // you can adjust alignment
+  // span.textContent = `${username}: ${text}`;
+  // span.classList.add(
+  //   "inline-block", "bg-black/20", "text-slate-200",
+  //   "px-6", "py-2", "rounded-xl", "max-w-[70%]"
+  // );
+  // li.appendChild(span);
+  // document.getElementById("chat-ul").appendChild(li);
+}
+
 
 /* ---------------- helper ---------------- */
 function getUsername() {
@@ -160,29 +224,15 @@ socket.onmessage = (event) => {
   mawlaui.scrollTop = mawlaui.scrollHeight;
 };
 
+
+
 /* ---------------- Send message ---------------- */
 runcrack.addEventListener("click", () => {
   const text = tracker.value.trim();
-  if (!text) return;
-
-  const username = getUsername();
-  if (!username) {
-    alert("Please login first");
-    return;
-  }
-
-  socket.send(
-    JSON.stringify({
-      sender: username,
-      text
-    })
-  );
-
-  tracker.value = "";
+  sendText(text);
 });
 
 tracker.addEventListener("keydown", (e) => {
   if (e.key === "Enter") runcrack.click();
 });
-
 

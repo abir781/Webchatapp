@@ -18,3 +18,15 @@
   border: none;
   box-shadow: none;
 }
+
+.grids {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2টি কলাম */
+  gap: 10px; /* গ্যাপ */
+}
+
+.grids div:nth-child(3) {
+  grid-column: 1 / -1; /* পুরো row জুড়ে */
+  /* বা */
+  grid-column: 1; /* প্রথম কলামে */
+}
